@@ -13,6 +13,8 @@ It provides:
 
 - `StorageSuperPlugin`, which registers `StorageProviding` during kernel boot;
 - `StorageService`, which scopes plugin and core data directories;
+- `StoragePathResolver`, which exposes the same root convention to legacy hosts
+  before they adopt the kernel lifecycle;
 - a stable default root under Application Support, separated by bundle ID and
   debug/production major-version directories.
 

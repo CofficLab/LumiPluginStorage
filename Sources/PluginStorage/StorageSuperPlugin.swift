@@ -58,32 +58,7 @@ public final class StorageSuperPlugin: SuperPlugin, SuperLog {
     }
 
     private static func makeDefaultDataRootDirectory() throws -> URL {
-        let appSupport = try FileManager.default.url(
-            for: .applicationSupportDirectory,
-            in: .userDomainMask,
-            appropriateFor: nil,
-            create: true
-        )
-
-        let bundleID = Bundle.main.bundleIdentifier ?? "com.coffic.lumi"
-        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1"
-        let majorVersion = version.split(separator: ".").first.flatMap { Int($0) } ?? 1
-
-        #if DEBUG
-        let databaseDirectoryName = "db_debug_v\(majorVersion)"
-        #else
-        let databaseDirectoryName = "db_production_v\(majorVersion)"
-        #endif
-
-        let dataRoot = appSupport
-            .appendingPathComponent(bundleID, isDirectory: true)
-            .appendingPathComponent(databaseDirectoryName, isDirectory: true)
-
-        try FileManager.default.createDirectory(
-            at: dataRoot,
-            withIntermediateDirectories: true
-        )
-        return dataRoot.standardizedFileURL
+        try StoragePathResolver.defaultDataRootDirectory()
     }
 }
 

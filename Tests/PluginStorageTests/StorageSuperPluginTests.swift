@@ -50,6 +50,19 @@ func storagePluginKeepsAHostProvidedService() throws {
     #expect(resolved.dataRootDirectory == hostRoot.standardizedFileURL)
 }
 
+@Test
+func storagePathResolverCreatesTheVersionedRoot() throws {
+    let root = try StoragePathResolver.defaultDataRootDirectory(
+        bundle: .main,
+        fallbackBundleID: "com.example.storage-tests",
+        fallbackMajorVersion: 7
+    )
+
+    #expect(root.lastPathComponent.hasPrefix("db_"))
+    #expect(root.path.contains("com.example.storage-tests") || Bundle.main.bundleIdentifier != nil)
+    #expect(FileManager.default.fileExists(atPath: root.path))
+}
+
 @MainActor
 private final class TestStorageProvider: StorageProviding {
     let dataRootDirectory: URL
