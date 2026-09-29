@@ -1,0 +1,35 @@
+// swift-tools-version: 6.0
+import PackageDescription
+
+let package = Package(
+    name: "LumiPluginStorage",
+    platforms: [
+        .macOS(.v14),
+        .iOS(.v17)
+    ],
+    products: [
+        // Keep the module/product name stable so existing projects can keep
+        // using `import PluginStorage` during the migration.
+        .library(name: "PluginStorage", targets: ["PluginStorage"])
+    ],
+    dependencies: [
+        .package(url: "https://github.com/CofficLab/LumiProviders.git", from: "1.3.4"),
+        .package(url: "https://github.com/CofficLab/LumiLogging.git", from: "1.0.1"),
+        .package(url: "https://github.com/CofficLab/LumiKernel.git", from: "1.0.0")
+    ],
+    targets: [
+        .target(
+            name: "PluginStorage",
+            dependencies: [
+                .product(name: "LumiLoggingKit", package: "LumiLogging"),
+                .product(name: "KernelCore", package: "LumiKernel"),
+                .product(name: "ProviderStorage", package: "LumiProviders")
+            ],
+            path: "Sources/PluginStorage"
+        ),
+        .testTarget(
+            name: "PluginStorageTests",
+            dependencies: ["PluginStorage"]
+        )
+    ]
+)
