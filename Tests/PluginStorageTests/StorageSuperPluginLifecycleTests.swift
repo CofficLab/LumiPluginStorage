@@ -22,6 +22,18 @@ struct StorageSuperPluginLifecycleTests {
     }
 
     @Test @MainActor
+    func customIDIsApplied() throws {
+        let plugin = try StorageSuperPlugin(
+            id: "com.example.custom.plugin.storage",
+            dataRootDirectory: makeTemporaryDirectory("StoragePluginCustomIDTests")
+        )
+
+        #expect(plugin.id == "com.example.custom.plugin.storage")
+        #expect(plugin.metadata.id == plugin.id)
+        #expect(StorageSuperPlugin.defaultPluginID == "com.coffic.lumi.plugin.storage")
+    }
+
+    @Test @MainActor
     func bootIsIdempotentAndKeepsFirstService() throws {
         let root = makeTemporaryDirectory("StoragePluginDoubleBootTests")
         defer { try? FileManager.default.removeItem(at: root) }

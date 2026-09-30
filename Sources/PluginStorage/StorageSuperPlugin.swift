@@ -17,29 +17,38 @@ public final class StorageSuperPlugin: SuperPlugin, SuperLog {
         category: "Storage"
     )
 
-    public let id = "com.coffic.lumi.plugin.storage"
+    /// 默认插件标识。宿主可在装配时传入自己的 id。
+    public static let defaultPluginID = "com.coffic.lumi.plugin.storage"
+
+    public let id: String
     public let order = 1
-    public let metadata = PluginMetadata(
-        id: "com.coffic.lumi.plugin.storage",
-        name: "Storage Super",
-        description: "",
-        category: .system,
-        stage: .stable,
-        policy: .alwaysOn
-    )
+    public let metadata: PluginMetadata
 
     public let dataRootDirectory: URL
 
-    public init(dataRootDirectory: URL? = nil) throws {
+    /// 创建共享存储插件。
+    ///
+    /// - Parameters:
+    ///   - id: 插件唯一标识，决定 `PluginMetadata.id`。
+    ///   - dataRootDirectory: 显式数据根目录；缺省时使用应用级默认路径。
+    public init(
+        id: String = StorageSuperPlugin.defaultPluginID,
+        dataRootDirectory: URL? = nil
+    ) throws {
+        self.id = id
+        self.metadata = PluginMetadata(
+            id: id,
+            name: "Storage Super",
+            description: "",
+            category: .system,
+            stage: .stable,
+            policy: .alwaysOn
+        )
         if let dataRootDirectory {
             self.dataRootDirectory = dataRootDirectory.standardizedFileURL
         } else {
             self.dataRootDirectory = try Self.makeDefaultDataRootDirectory()
         }
-    }
-
-    public convenience init() throws {
-        try self.init(dataRootDirectory: nil)
     }
 
     /// Registers storage unless the host has already provided an explicit
