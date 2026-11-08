@@ -1,5 +1,7 @@
 # LumiPluginStorage
 
+📖 English | [中文版](README_zh.md)
+
 Shared storage super plugin for Lumi and its sibling applications.
 
 The package exposes the `PluginStorage` product and module so existing hosts
