@@ -21,14 +21,14 @@ It provides:
   debug/production major-version directories.
 
 The storage contract remains in
-[`LumiProviders`](https://github.com/CofficLab/LumiProviders), while this
+[`LumiProviders`](https://github.com/lumi-softworks/LumiProviders), while this
 package owns the default implementation and lifecycle registration.
 
 ## Swift Package integration
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/CofficLab/LumiPluginStorage.git", from: "1.0.0")
+    .package(url: "https://github.com/lumi-softworks/LumiPluginStorage.git", from: "1.0.0")
 ]
 ```
 

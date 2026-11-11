@@ -18,14 +18,14 @@ import PluginStorage
 - Application Support 下稳定的默认根目录，按 bundle ID 与调试/生产大版本目录分隔。
 
 存储契约仍位于
-[`LumiProviders`](https://github.com/CofficLab/LumiProviders)，本包拥有
+[`LumiProviders`](https://github.com/lumi-softworks/LumiProviders)，本包拥有
 默认实现与生命周期注册。
 
 ## Swift Package 集成
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/CofficLab/LumiPluginStorage.git", from: "1.0.0")
+    .package(url: "https://github.com/lumi-softworks/LumiPluginStorage.git", from: "1.0.0")
 ]
 ```
 
