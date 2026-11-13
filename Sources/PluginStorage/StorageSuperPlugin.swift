@@ -72,10 +72,7 @@ public final class StorageSuperPlugin: SuperPlugin, SuperLog {
     /// implementation. This lets tests and specialized hosts opt into their
     /// own root without the shared plugin overwriting it.
     public func onBoot(kernel: KernelCoreContainer) throws {
-        if let existing = kernel.resolveProvider((any StorageProviding).self) {
-            Self.logger.info(
-                "\(Self.t)StorageProviding already registered (\(String(describing: type(of: existing)), privacy: .public)); keeping it"
-            )
+        if kernel.resolveProvider((any StorageProviding).self) != nil {
             return
         }
 
